@@ -21,11 +21,11 @@ describe("MultiSignature Wallet Contract Test.", function(){
         return { wallet, _quorum, signers, receipents};
     }
 
-    async function deployGtkToken() {
+    async function deploySyeToken() {
         const [tokenAddress] = await hre.ethers.getSigners();
-        const GtkToken = await hre.ethers.getContractFactory("GTK");
-        const gtkToken = await GtkToken.deploy();
-        return { tokenAddress, gtkToken }
+        const SyeToken = await hre.ethers.getContractFactory("SYE");
+        const syeToken = await SyeToken.deploy();
+        return { tokenAddress, syeToken }
 
     }
 
@@ -60,26 +60,26 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
-            expect(await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress())).to.not.be.revertedWith("address zero found")
+            expect(await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress())).to.not.be.revertedWith("address zero found")
         });
 
         it("Should check if address calling the function is a valid signer", async function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
-            expect(await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress())).to.not.be.revertedWith("invalid signer")
+            expect(await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress())).to.not.be.revertedWith("invalid signer")
 
         });
 
@@ -87,13 +87,13 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
-            await expect(wallet.connect(signers[0]).transfer(_amount, receipents[1], gtkToken.getAddress())).to.not.be.revertedWith("can't send zero amount")
+            await expect(wallet.connect(signers[0]).transfer(_amount, receipents[1], syeToken.getAddress())).to.not.be.revertedWith("can't send zero amount")
 
         });
 
@@ -101,13 +101,13 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
-            await expect( wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress())).to.not.be.revertedWith("insufficient funds")
+            await expect( wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress())).to.not.be.revertedWith("insufficient funds")
 
         });
 
@@ -115,13 +115,13 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
-            expect(await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress())).to.not.reverted
+            expect(await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress())).to.not.reverted
         });
     });
 
@@ -131,10 +131,10 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
 
@@ -145,10 +145,10 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
 
@@ -159,10 +159,10 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
 
@@ -173,10 +173,10 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
 
@@ -187,10 +187,10 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
             expect(await wallet.connect(signers[0]).updateQuorum(3)).to.not.reverted
@@ -204,14 +204,14 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
 
             expect(await wallet.connect(signers[1]).approveTx(2)).to.not.be.revertedWith("Transaction already completed.")
         });
@@ -221,14 +221,14 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
 
             const _amount = ethers.parseUnits("1", 18);
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
 
         
             expect(await wallet.connect(signers[1]).approveTx(2)).to.not.be.revertedWith("Invalid transaction Id.")
@@ -238,13 +238,13 @@ describe("MultiSignature Wallet Contract Test.", function(){
 
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
             const _amount = ethers.parseUnits("1", 18);
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
 
             await expect(wallet.connect(signers[1]).approveTx(2)).to.not.be.revertedWith("insufficient funds.")
 
@@ -253,13 +253,13 @@ describe("MultiSignature Wallet Contract Test.", function(){
         it("Should check if total approval has been reached.", async function(){
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
             const _amount = ethers.parseUnits("1", 18);
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
             
             // await wallet.connect(signers[0]).approveTx(2);
             await wallet.connect(signers[1]).approveTx(2);
@@ -272,14 +272,14 @@ describe("MultiSignature Wallet Contract Test.", function(){
         it("Should check if transaction has already been signed by a signer.", async function(){
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
             const _amount = ethers.parseUnits("1", 18);
             
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
             
             // await wallet.connect(signers[0]).approveTx(2);
             await expect(wallet.connect(signers[0]).approveTx(2)).to.be.revertedWith("Can't sign twice.");
@@ -289,13 +289,13 @@ describe("MultiSignature Wallet Contract Test.", function(){
         it("Should check if signer is a valid signer.", async function(){
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
             const _amount = ethers.parseUnits("1", 18);
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
             
             // await wallet.connect(signers[0]).approveTx(2);
             await expect(wallet.connect(signers[0]).approveTx(2)).to.not.be.revertedWith("Not a valid signer.");
@@ -305,13 +305,13 @@ describe("MultiSignature Wallet Contract Test.", function(){
         it("Should check if approve function is working perfectly.", async function(){
             const { wallet, _quorum, signers, receipents} = await loadFixture(deployMultiSync);
 
-            const { tokenAddress, gtkToken } = await loadFixture(deployGtkToken);
+            const { tokenAddress, syeToken } = await loadFixture(deploySyeToken);
 
             const amountToTransfer = ethers.parseUnits("10", 18);
-            gtkToken.transfer(wallet.getAddress(),amountToTransfer);
+            syeToken.transfer(wallet.getAddress(),amountToTransfer);
             const _amount = ethers.parseUnits("1", 18);
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
-            await wallet.connect(signers[0]).transfer(_amount, signers[1], gtkToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
+            await wallet.connect(signers[0]).transfer(_amount, signers[1], syeToken.getAddress());
             
             
             // await wallet.connect(signers[0]).approveTx(2);
